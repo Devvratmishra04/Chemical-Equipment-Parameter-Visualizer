@@ -1,0 +1,9 @@
+Django>=5.0
+djangorestframework
+pandas
+PyQt5
+requests
+django-cors-headers
+matplotlib
+reportlab
+django-filter

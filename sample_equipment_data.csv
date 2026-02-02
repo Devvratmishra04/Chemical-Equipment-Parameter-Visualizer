@@ -1,0 +1,11 @@
+Equipment Name,Type,Flowrate,Pressure,Temperature
+Reactor-A,Reactor,120.5,15.2,85.5
+Exchanger-X,Heat Exchanger,250.0,10.0,60.2
+Pump-101,Pump,50.2,45.5,25.0
+Reactor-B,Reactor,115.0,16.0,88.0
+Tower-C,Distillation Tower,300.5,5.5,110.0
+Pump-102,Pump,52.0,44.0,26.5
+Mixer-Z,Mixer,80.0,2.0,30.0
+Exchanger-Y,Heat Exchanger,245.0,10.5,62.0
+Reactor-C,Reactor,122.0,14.8,84.0
+Tower-D,Distillation Tower,310.0,5.2,112.5
