@@ -7,6 +7,10 @@ from .serializers import DocumentSerializer
 from .analytics import process_csv
 from .pdf_utils import generate_pdf_report
 import os
+from rest_framework import permissions
+from rest_framework.generics import CreateAPIView
+from django.contrib.auth.models import User
+from .serializers import DocumentSerializer, UserSerializer
 
 class FileUploadView(APIView):
     def post(self, request, *args, **kwargs):
@@ -79,4 +83,9 @@ class PDFReportView(APIView):
             return response
         except Document.DoesNotExist:
              return Response({"error": "Document not found"}, status=status.HTTP_404_NOT_FOUND)
+
+class RegisterView(CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.AllowAny]
 

@@ -19,10 +19,32 @@ ChartJS.register(
     Legend
 );
 
-const Dashboard = ({ data }) => {
+import api from '../api';
+
+const Dashboard = ({ data, documentId }) => {
     if (!data) return null;
 
     const { stats, type_distribution, data: records } = data;
+
+    const handleDownloadReport = async () => {
+        if (!documentId) return;
+        try {
+            const response = await api.get(`history/${documentId}/pdf/`, {
+                responseType: 'blob', // Important for handling binary data
+            });
+
+            // Create a blob link to download
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `report_${documentId}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        } catch (error) {
+            console.error("Failed to download PDF", error);
+        }
+    };
 
     const chartData = {
         labels: Object.keys(type_distribution),
@@ -56,6 +78,16 @@ const Dashboard = ({ data }) => {
 
     return (
         <div>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
+                <button
+                    className="btn"
+                    onClick={handleDownloadReport}
+                    disabled={!documentId}
+                    style={{ background: 'var(--accent-color)' }}
+                >
+                    Download PDF Report
+                </button>
+            </div>
             <div className="stats-grid">
                 <div className="stat-card">
                     <div className="stat-value">{stats.total_count}</div>
